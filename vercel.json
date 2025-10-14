@@ -3,6 +3,9 @@
   "outputDirectory": "frontend/.next",
   "framework": "nextjs",
   "installCommand": "pnpm install --filter frontend",
+  "env": {
+    "ENABLE_EXPERIMENTAL_COREPACK": "1"
+  },
   "headers": [
     {
       "source": "/(.*)",

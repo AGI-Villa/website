@@ -1,0 +1,46 @@
+{
+  "name": "agivilla-website",
+  "version": "1.0.0",
+  "description": "AGI Villa - Community-Driven, AI-Native Venture Studio",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm dev:frontend",
+    "dev:frontend": "cd frontend && pnpm dev",
+    "build": "pnpm build:frontend",
+    "build:frontend": "cd frontend && pnpm build",
+    "start": "pnpm start:frontend",
+    "start:frontend": "cd frontend && pnpm start",
+    "lint": "pnpm lint:frontend",
+    "lint:frontend": "cd frontend && pnpm lint",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "test": "pnpm test:frontend",
+    "test:frontend": "cd frontend && pnpm test"
+  },
+  "comments": {
+    "strapi": "TODO: Strapi CMS scripts will be added when implementing the backend",
+    "future-scripts": {
+      "dev:strapi": "cd strapi && pnpm develop",
+      "build:strapi": "cd strapi && pnpm build",
+      "start:strapi": "cd strapi && pnpm start",
+      "lint:strapi": "cd strapi && pnpm lint"
+    }
+  },
+  "keywords": [
+    "venture-studio",
+    "community",
+    "ai",
+    "incubator"
+  ],
+  "author": "AGI Villa Team",
+  "license": "PROPRIETARY",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "prettier": "^3.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.1"
+}
+

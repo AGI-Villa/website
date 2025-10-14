@@ -338,11 +338,11 @@ export default function VisionResponsibilitySection() {
           transition={{ duration: 0.8, delay: 1.8 }}
         >
           <blockquote className="relative inline-block">
-            <div className="absolute -left-4 md:-left-6 -top-2 text-3xl md:text-4xl text-white/10">"</div>
+            <div className="absolute -left-4 md:-left-6 -top-2 text-3xl md:text-4xl text-white/10">&ldquo;</div>
             <p className="text-xl md:text-2xl lg:text-3xl text-white/90 font-light italic px-6 md:px-8 max-w-3xl md:max-w-4xl">
               We believe innovation should be accessible, replicable and beneficial to all.
             </p>
-            <div className="absolute -right-4 md:-right-6 -bottom-4 md:-bottom-6 text-3xl md:text-4xl text-white/10">"</div>
+            <div className="absolute -right-4 md:-right-6 -bottom-4 md:-bottom-6 text-3xl md:text-4xl text-white/10">&rdquo;</div>
           </blockquote>
         </motion.div>
 

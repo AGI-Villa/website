@@ -143,7 +143,7 @@ export default function HeroSection() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
           >
-            "The world's first community-driven venture studio."
+            &ldquo;The world&rsquo;s first community-driven venture studio.&rdquo;
           </motion.p>
 
           {/* CTA Buttons */}

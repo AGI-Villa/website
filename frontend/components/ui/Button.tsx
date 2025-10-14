@@ -60,7 +60,13 @@ export default function Button({
 
     // 随机生成粒子
     if (Math.random() > 0.85) {
-      const newParticles = []
+      const newParticles: Array<{
+        id: number
+        x: number
+        y: number
+        vx: number
+        vy: number
+      }> = []
       for (let i = 0; i < 3; i++) {
         const angle = Math.random() * Math.PI * 2
         const speed = Math.random() * 1.5 + 0.5

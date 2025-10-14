@@ -7,11 +7,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const navItems = [
-  { name: 'Features', href: '#features' },
-  { name: 'Company', href: '#company' },
-  { name: 'Resources', href: '#resources' },
   { name: 'Events', href: '#events' },
-  { name: 'Pricing', href: '#pricing' },
+  { name: 'Blogs', href: '#blogs' },
+  { name: 'Contact Us', href: '#contact' },
+  { name: 'Join Us', href: '#join' },
 ]
 
 export default function Navbar() {

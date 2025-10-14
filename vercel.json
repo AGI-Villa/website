@@ -1,6 +1,6 @@
 {
   "installCommand": "corepack enable && corepack prepare pnpm@8.15.1 --activate && pnpm install",
-  "buildCommand": "pnpm build",
+  "buildCommand": "rm -rf .next && pnpm build",
   "outputDirectory": ".next",
   "framework": "nextjs",
   "headers": [

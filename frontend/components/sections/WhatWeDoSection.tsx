@@ -37,7 +37,7 @@ export default function WhatWeDoSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   return (
-    <section ref={ref} className="relative min-h-screen bg-black py-32 overflow-hidden">
+    <section ref={ref} className="relative min-h-screen bg-black pt-32 pb-8 overflow-hidden">
       {/* 背景星空 */}
       <div className="absolute inset-0">
         {[...Array(80)].map((_, i) => (

@@ -2,6 +2,7 @@
 
 import { motion, useInView, useMotionValue, useAnimationFrame } from 'framer-motion'
 import { useRef, useState } from 'react'
+import Image from 'next/image'
 import Button from '@/components/ui/Button'
 import Saturn3D from '@/components/ui/Saturn3D'
 
@@ -13,11 +14,17 @@ interface EcosystemRole {
   position: 'topRight' | 'bottomRight' | 'bottomLeft' | 'topLeft'
 }
 
+interface Partner {
+  id: string
+  name: string
+  logo?: string
+}
+
 const roles: EcosystemRole[] = [
   {
     id: 'founder',
     title: 'Founder',
-    description: 'Join the community, submit projects, and receive incubation support',
+    description: 'Join the community and receive incubation support',
     cta: 'Apply for Incubation',
     position: 'topRight',
   },
@@ -31,7 +38,7 @@ const roles: EcosystemRole[] = [
   {
     id: 'partner',
     title: 'Partner',
-    description: 'Co-host events with Villa, build brands and resources together',
+    description: 'Co-host impactful events with Villa, build brands and resources together collaboratively',
     cta: 'Partner with Us',
     position: 'bottomLeft',
   },
@@ -44,11 +51,20 @@ const roles: EcosystemRole[] = [
   },
 ]
 
-// 示例合作伙伴数据（实际使用时替换为真实 logo）
-const partners = [
-  'Partner 1', 'Partner 2', 'Partner 3', 'Partner 4', 
-  'Partner 5', 'Partner 6', 'Partner 7', 'Partner 8',
-  'Partner 9', 'Partner 10', 'Partner 11', 'Partner 12',
+// 合作伙伴数据
+const partners: Partner[] = [
+  { id: 'linkloud', name: 'LinkLoud', logo: '/images/logo/linkloud.png' },
+  { id: 'partner-2', name: 'Partner 2' },
+  { id: 'partner-3', name: 'Partner 3' },
+  { id: 'partner-4', name: 'Partner 4' },
+  { id: 'partner-5', name: 'Partner 5' },
+  { id: 'partner-6', name: 'Partner 6' },
+  { id: 'partner-7', name: 'Partner 7' },
+  { id: 'partner-8', name: 'Partner 8' },
+  { id: 'partner-9', name: 'Partner 9' },
+  { id: 'partner-10', name: 'Partner 10' },
+  { id: 'partner-11', name: 'Partner 11' },
+  { id: 'partner-12', name: 'Partner 12' },
 ]
 
 export default function JoinEcosystemSection() {
@@ -152,7 +168,7 @@ export default function JoinEcosystemSection() {
   }
 
   return (
-    <section ref={ref} className="relative bg-black py-32 overflow-hidden">
+    <section ref={ref} className="relative bg-black pt-8 pb-32 overflow-hidden">
       {/* 背景星空 - 完全静态 */}
       <div className="absolute inset-0">
         {stars.map((star, i) => (
@@ -171,7 +187,7 @@ export default function JoinEcosystemSection() {
       <div className="container mx-auto px-4 relative z-10">
         {/* 标题 */}
         <motion.div
-          className="text-center mb-32"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
@@ -325,17 +341,26 @@ export default function JoinEcosystemSection() {
               {/* 复制partners 3次以实现无缝循环 */}
               {[...partners, ...partners, ...partners].map((partner, index) => (
                 <div
-                  key={index}
+                  key={`${partner.id}-${index}`}
                   className="flex-shrink-0 group"
                   style={{ width: '160px' }}
                   onMouseEnter={() => setIsScrolling(false)}
                   onMouseLeave={() => setIsScrolling(true)}
                 >
-                  <div className="aspect-[3/2] rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center transition-all duration-300 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-white/10 cursor-pointer">
-                    {/* 占位符 - 实际使用时替换为 <Image> */}
-                    <div className="text-gray-500 text-sm font-mono transition-all duration-300 group-hover:text-gray-300 group-hover:scale-110">
-                      {partner}
-                    </div>
+                  <div className="aspect-[3/2] rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center transition-all duration-300 hover:bg-white/15 hover:border-white/30 hover:shadow-lg hover:shadow-white/10 cursor-pointer overflow-hidden p-4">
+                    {partner.logo ? (
+                      <Image
+                        src={partner.logo}
+                        alt={partner.name}
+                        width={120}
+                        height={80}
+                        className="object-contain w-full h-full transition-all duration-300 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className="text-gray-500 text-sm font-mono transition-all duration-300 group-hover:text-gray-300 group-hover:scale-110">
+                        {partner.name}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

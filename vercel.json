@@ -1,4 +1,5 @@
 {
+  "installCommand": "pnpm install --filter frontend",
   "buildCommand": "cd frontend && pnpm build",
   "outputDirectory": "frontend/.next",
   "framework": "nextjs",

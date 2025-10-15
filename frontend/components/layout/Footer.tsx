@@ -55,13 +55,8 @@ export default function Footer() {
           >
             {/* Logo */}
             <div className="flex items-center gap-3 mb-4">
-              <div className="relative w-10 h-10">
-                <Image
-                  src="/images/logo/agi-villa.png"
-                  alt="AGI Villa"
-                  fill
-                  className="object-contain"
-                />
+              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">AV</span>
               </div>
               <span className="text-2xl font-bold text-white">AGI Villa</span>
             </div>

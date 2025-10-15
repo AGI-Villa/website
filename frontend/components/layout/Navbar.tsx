@@ -49,14 +49,9 @@ export default function Navbar() {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <Image
-                src="/images/logo/agi-villa.png"
-                alt="AGI Villa Logo"
-                width={40}
-                height={40}
-                className="group-hover:scale-105 transition-transform h-8 sm:h-10 w-auto"
-                priority
-              />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform">
+                <span className="text-white font-bold text-sm sm:text-base">AV</span>
+              </div>
               <span className={`text-xl sm:text-2xl font-extrabold text-white group-hover:text-gray-100 transition-colors duration-300 tracking-tight uppercase ${inter.className}`}>
                 AGI Villa
               </span>

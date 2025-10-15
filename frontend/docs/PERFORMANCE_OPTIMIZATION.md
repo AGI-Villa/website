@@ -1,197 +1,170 @@
-# 性能优化指南
+# 🚀 性能优化指南
 
-## 已实施的优化措施
+## 📊 当前性能问题
 
-### 1. Next.js 配置优化
+根据 Vercel Speed Insights 报告，网站存在严重的性能问题：
 
-#### 代码压缩和优化
-- ✅ 启用 SWC Minify（更快的代码压缩）
-- ✅ 启用 Gzip/Brotli 压缩
-- ✅ 移除 X-Powered-By 头（安全性）
-- ✅ 生产环境移除 console.log
+- **Real Experience Score: 34** (差)
+- **First Contentful Paint: 20.76秒** 
+- **Largest Contentful Paint: 20.76秒**
+- **Time to First Byte: 2.99秒**
 
-#### 图片优化
-- ✅ 支持 AVIF 和 WebP 格式
-- ✅ 响应式图片尺寸配置
-- ✅ 图片缓存策略（60秒 TTL）
-- 建议：使用 `next/image` 组件替代 `<img>` 标签
+## 🔍 问题根源分析
 
-#### 包优化
-- ✅ 优化 framer-motion、@react-three/fiber、@react-three/drei 的导入
+### 1. 图片文件过大
+- `agi-villa.png`: **2.4MB** (1248x832px) - 主要问题
+- `together.jpg`: **479KB** - 团队照片过大
+- 其他logo文件相对合理 (30-80KB)
 
-### 2. 代码分割和懒加载
+### 2. 关键位置使用大文件
+- Layout.tsx: 网站图标和Open Graph图片
+- Navbar.tsx: 导航栏logo
+- Footer.tsx: 页脚logo
+- manifest.json: PWA图标
 
-#### 动态导入
-- ✅ 非首屏组件使用 `dynamic()` 导入
-- ✅ Three.js 组件禁用 SSR（避免服务端渲染问题）
-- ✅ 所有 Section 组件懒加载
+## ⚡ 优化方案
 
-**优化效果**：
-- 减少首屏 JavaScript 包大小约 40-60%
-- 提升 First Contentful Paint (FCP)
-- 改善 Time to Interactive (TTI)
+### 1. 图片优化 (立即执行)
 
-### 3. 动画性能优化
+#### A. 创建多尺寸logo文件
+```bash
+# 创建不同尺寸的logo文件
+- agi-villa-32x32.png    # 导航栏使用 (2-5KB)
+- agi-villa-64x64.png    # 页脚使用 (5-10KB)  
+- agi-villa-192x192.png  # PWA图标 (10-20KB)
+- agi-villa-512x512.png  # Open Graph (20-50KB)
+```
 
-#### 星空效果优化
-- ✅ 将 130 个 Framer Motion 动画星星减少到 15 个
-- ✅ 使用 CSS box-shadow 技术创建静态星星（零 JS 开销）
-- ✅ 使用 CSS 关键帧动画替代 JS 动画
+#### B. 压缩现有图片
+使用在线工具压缩：
+- [TinyPNG](https://tinypng.com/) - PNG压缩
+- [Squoosh](https://squoosh.app/) - 多格式压缩
+- [ImageOptim](https://imageoptim.com/) - Mac专用
 
-**优化效果**：
-- 减少约 85% 的动画计算开销
-- 降低内存使用
-- 提升滚动性能
-
-### 4. SEO 优化
-
-#### Meta 标签完善
-- ✅ 增强的 Open Graph 标签
-- ✅ Twitter Card 优化
-- ✅ 完整的关键词配置
-- ✅ Canonical URL 设置
-- ✅ 机器人索引指令
-
-#### 结构化数据
-- ✅ JSON-LD Schema.org 组织数据
-- ✅ 社交媒体链接整合（待填充实际链接）
-
-#### 搜索引擎配置
-- ✅ robots.txt 自动生成
-- ✅ sitemap.xml 自动生成
-- ✅ PWA manifest.json
-
-### 5. 字体加载优化
-
-- ✅ 使用 Next.js Font Optimization
-- ✅ 字体预加载（preload）
-- ✅ Font Display Swap 策略
-- ✅ 系统字体作为 fallback
-- ✅ 自动调整 fallback 字体度量
-
-## 性能指标目标
-
-### Core Web Vitals 目标
-- **LCP (Largest Contentful Paint)**: < 2.5s ✅
-- **FID (First Input Delay)**: < 100ms ✅
-- **CLS (Cumulative Layout Shift)**: < 0.1 ✅
-
-### 其他指标
-- **FCP (First Contentful Paint)**: < 1.8s
-- **TTI (Time to Interactive)**: < 3.8s
-- **Speed Index**: < 3.4s
-
-## 进一步优化建议
-
-### 1. 图片资源
+#### C. 使用WebP格式
 ```tsx
-// 使用 next/image 组件
-import Image from 'next/image'
-
+// 在Next.js中使用WebP
 <Image
-  src="/images/hero/background.jpg"
-  alt="Hero Background"
-  fill
+  src="/images/logo/agi-villa.webp"
+  alt="AGI Villa Logo"
+  width={32}
+  height={32}
   priority
-  quality={85}
-  placeholder="blur"
 />
 ```
 
-### 2. 添加 Service Worker (PWA)
-考虑使用 `next-pwa` 插件实现离线支持和缓存策略。
+### 2. 代码优化
 
-### 3. 启用 ISR (Incremental Static Regeneration)
-对于动态内容，使用 ISR 提供更好的性能：
-
+#### A. 更新Layout.tsx
 ```tsx
-export const revalidate = 3600 // 每小时重新生成
+// 使用小尺寸图标
+icon: '/images/logo/agi-villa-32x32.png',
+apple: '/images/logo/agi-villa-192x192.png',
+shortcut: '/images/logo/agi-villa-32x32.png',
 ```
 
-### 4. 资源预加载
-在关键页面添加资源预加载：
-
+#### B. 更新Navbar.tsx
 ```tsx
-<link rel="preload" href="/critical-resource.js" as="script" />
+<Image
+  src="/images/logo/agi-villa-32x32.png"
+  alt="AGI Villa Logo"
+  width={32}
+  height={32}
+  priority
+/>
 ```
 
-### 5. 分析工具
-
-#### 本地分析
-```bash
-pnpm build
-pnpm start
-```
-
-然后使用：
-- Chrome DevTools Lighthouse
-- WebPageTest
-- PageSpeed Insights
-
-#### 包大小分析
-```bash
-pnpm add -D @next/bundle-analyzer
-```
-
-在 `next.config.mjs` 中启用：
-```js
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
-
-module.exports = withBundleAnalyzer(nextConfig)
-```
-
-运行分析：
-```bash
-ANALYZE=true pnpm build
-```
-
-## 监控和测量
-
-### 生产环境监控
-建议集成以下工具：
-- Vercel Analytics（如果部署在 Vercel）
-- Google Analytics 4
-- Sentry（错误监控）
-- Web Vitals 监控
-
-### 性能监控代码
-在 `app/layout.tsx` 中添加：
-
+#### C. 更新Footer.tsx
 ```tsx
-import { Analytics } from '@vercel/analytics/react'
-import { SpeedInsights } from '@vercel/speed-insights/next'
-
-// 在 body 中添加
-<Analytics />
-<SpeedInsights />
+<Image
+  src="/images/logo/agi-villa-64x64.png"
+  alt="AGI Villa Logo"
+  width={64}
+  height={64}
+/>
 ```
 
-## 部署优化
+### 3. Next.js配置优化
 
-### CDN 配置
-- 确保静态资源通过 CDN 分发
-- 启用 HTTP/2 或 HTTP/3
-- 配置适当的缓存头
+#### A. 图片优化配置
+```javascript
+// next.config.mjs
+images: {
+  formats: ['image/avif', 'image/webp'],
+  deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+  imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  minimumCacheTTL: 31536000, // 1年缓存
+},
+```
 
-### Edge Functions
-考虑使用 Edge Runtime 处理动态内容：
-
+#### B. 预加载关键资源
 ```tsx
-export const runtime = 'edge'
+// layout.tsx
+<link
+  rel="preload"
+  href="/images/logo/agi-villa-32x32.png"
+  as="image"
+/>
 ```
 
-## 检查清单
+### 4. 服务器优化
 
-部署前请确认：
+#### A. 启用压缩
+```javascript
+// next.config.mjs
+compress: true,
+```
 
-- [ ] 运行 `pnpm build` 无错误
-- [ ] 运行 `pnpm lint` 无警告
-- [ ] Lighthouse 分数 > 90
-- [ ] 所有图片已优化
-- [ ] 移除未使用的依赖
-- [ ] 环境变量已配置
-- [ ] 测试移动端性能
-- [ ] 检查无障碍性（a11y）
+#### B. 静态资源缓存
+```javascript
+// vercel.json
+{
+  "headers": [
+    {
+      "source": "/images/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}
+```
 
+## 📈 预期效果
+
+优化后预期性能提升：
+- **FCP**: 从20.76秒 → 1-3秒
+- **LCP**: 从20.76秒 → 1-3秒  
+- **RES**: 从34 → 70-85
+- **TTFB**: 从2.99秒 → 0.5-1秒
+
+## 🎯 执行优先级
+
+### 高优先级 (立即执行)
+1. ✅ 压缩 `agi-villa.png` 到合理大小
+2. ✅ 创建多尺寸logo文件
+3. ✅ 更新代码中的图片引用
+
+### 中优先级 (本周内)
+1. 优化团队照片 `together.jpg`
+2. 添加图片预加载
+3. 配置静态资源缓存
+
+### 低优先级 (后续优化)
+1. 考虑使用SVG格式logo
+2. 实现图片懒加载
+3. 添加Service Worker缓存
+
+## 🔧 工具推荐
+
+- **图片压缩**: TinyPNG, Squoosh
+- **格式转换**: CloudConvert
+- **性能监控**: Vercel Speed Insights
+- **Bundle分析**: @next/bundle-analyzer
+
+---
+
+**注意**: 图片优化是最重要的，因为2.4MB的logo文件是导致20秒加载时间的主要原因。

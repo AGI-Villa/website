@@ -1,7 +1,13 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { cn } from '../../lib/utils'
+import { clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
+
+// 内联 cn 函数避免路径解析问题
+function cn(...inputs: any[]) {
+  return twMerge(clsx(inputs))
+}
 
 interface ButtonProps {
   children: React.ReactNode

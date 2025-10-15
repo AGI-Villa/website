@@ -76,6 +76,40 @@ export default function HeroSection() {
             {/* Pulse animation background */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-20 blur-xl animate-pulse" />
             
+            {/* Coming Soon Badge - Top Right */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="absolute -top-2 -right-6 z-20"
+            >
+              <div className="relative">
+                {/* Subtle glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 opacity-15 blur-xs rounded-full" />
+                
+                {/* Badge */}
+                <div className="relative px-1.5 py-0.5 bg-gradient-to-r from-orange-500 to-red-500 text-white text-[9px] font-medium rounded-full border border-orange-400/30 shadow-sm">
+                  <span className="relative z-10">Coming Soon</span>
+                  
+                  {/* Small sparkle */}
+                  <motion.div
+                    className="absolute -top-0.5 -right-0.5 text-yellow-300 text-[7px]"
+                    animate={{ 
+                      rotate: [0, 360],
+                      scale: [1, 1.1, 1]
+                    }}
+                    transition={{ 
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    ✨
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+            
             <a
               href="#events"
               className="relative inline-flex items-center gap-3 px-5 py-3 rounded-full bg-gradient-to-r from-purple-500/10 via-purple-400/10 to-blue-500/10 backdrop-blur-sm border border-purple-400/30 hover:border-purple-400/50 transition-all duration-300 group shadow-lg shadow-purple-500/20"

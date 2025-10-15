@@ -2,12 +2,12 @@
 
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
-import Button from '@/components/ui/Button'
-import InteractiveParticleText from '@/components/ui/InteractiveParticleText'
-import StaticParticleText from '@/components/ui/StaticParticleText'
+import Button from '../ui/Button'
+import InteractiveParticleText from '../ui/InteractiveParticleText'
+import StaticParticleText from '../ui/StaticParticleText'
 
 // 动态导入Three.js组件，禁用SSR以避免服务端渲染问题
-const FloatingCubes = dynamic(() => import('@/components/ui/FloatingCubes'), {
+const FloatingCubes = dynamic(() => import('../ui/FloatingCubes'), {
   ssr: false,
   loading: () => <div className="absolute inset-0" />,
 })

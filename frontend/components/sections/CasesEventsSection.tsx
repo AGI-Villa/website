@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
-import Button from '@/components/ui/Button'
+import Button from '../ui/Button'
 
 interface Event {
   id: string

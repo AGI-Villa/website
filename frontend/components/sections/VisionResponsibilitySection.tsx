@@ -2,7 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
-import Button from '@/components/ui/Button'
+import Button from '../ui/Button'
 
 interface Commitment {
   id: string

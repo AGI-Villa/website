@@ -3,8 +3,8 @@
 import { motion, useInView, useMotionValue, useAnimationFrame } from 'framer-motion'
 import { useRef, useState } from 'react'
 import Image from 'next/image'
-import Button from '@/components/ui/Button'
-import Saturn3D from '@/components/ui/Saturn3D'
+import Button from '../ui/Button'
+import Saturn3D from '../ui/Saturn3D'
 
 interface EcosystemRole {
   id: string

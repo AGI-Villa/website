@@ -45,26 +45,34 @@ export default function Saturn3D() {
             `,
           }}
         >
-          {/* 自转的微妙表面纹理 */}
+          {/* 自转的大气纹理带 */}
           <div 
-            className="absolute inset-0"
+            className="absolute inset-0 rounded-full overflow-hidden"
             style={{
               backgroundImage: `
-                radial-gradient(ellipse 18px 24px at 15% 25%, rgba(255, 255, 255, 0.12) 0%, transparent 60%),
-                radial-gradient(ellipse 22px 28px at 55% 35%, rgba(0, 0, 0, 0.15) 0%, transparent 60%),
-                radial-gradient(ellipse 14px 20px at 30% 60%, rgba(255, 255, 255, 0.08) 0%, transparent 60%),
-                radial-gradient(ellipse 20px 26px at 70% 55%, rgba(0, 0, 0, 0.12) 0%, transparent 60%),
-                radial-gradient(ellipse 12px 18px at 45% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 60%),
-                radial-gradient(ellipse 16px 22px at 85% 70%, rgba(0, 0, 0, 0.1) 0%, transparent 60%)
+                linear-gradient(90deg, 
+                  transparent 0%, 
+                  rgba(255, 255, 255, 0.15) 10%, 
+                  rgba(255, 255, 255, 0.08) 15%, 
+                  transparent 20%,
+                  rgba(0, 0, 0, 0.12) 35%,
+                  rgba(0, 0, 0, 0.06) 40%,
+                  transparent 45%,
+                  rgba(255, 255, 255, 0.12) 60%,
+                  rgba(255, 255, 255, 0.06) 65%,
+                  transparent 70%,
+                  rgba(0, 0, 0, 0.1) 85%,
+                  transparent 95%
+                )
               `,
               backgroundSize: '200% 100%',
               backgroundPosition: '0% 0%',
-              animation: 'rotateSurface 50s linear infinite',
-              opacity: 0.6,
+              animation: 'rotateSurface 30s linear infinite',
+              opacity: 0.8,
             }}
           />
           
-          {/* 高光 */}
+          {/* 静态高光 */}
           <div 
             className="absolute rounded-full"
             style={{
@@ -77,7 +85,7 @@ export default function Saturn3D() {
             }}
           />
 
-          {/* 边缘微光 */}
+          {/* 静态边缘微光 */}
           <div 
             className="absolute rounded-full"
             style={{

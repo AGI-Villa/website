@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, useMemo } from 'react'
 
 interface ServiceCard {
   title: string
@@ -36,26 +36,36 @@ export default function WhatWeDoSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
+  // 缓存星星的位置和动画参数，避免重新渲染时位置改变
+  const stars = useMemo(() => {
+    return [...Array(80)].map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: Math.random() * 3 + 2,
+      delay: Math.random() * 2,
+    }))
+  }, [])
+
   return (
     <section ref={ref} className="relative min-h-screen bg-black pt-32 pb-8 overflow-hidden">
       {/* 背景星空 */}
       <div className="absolute inset-0">
-        {[...Array(80)].map((_, i) => (
+        {stars.map((star, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-white rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${star.left}%`,
+              top: `${star.top}%`,
             }}
             animate={{
               opacity: [0.2, 0.8, 0.2],
               scale: [0.8, 1.2, 0.8],
             }}
             transition={{
-              duration: Math.random() * 3 + 2,
+              duration: star.duration,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: star.delay,
             }}
           />
         ))}
@@ -98,34 +108,21 @@ export default function WhatWeDoSection() {
                 <div className="relative h-full p-10 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-md border border-white/10 transition-all duration-500 hover:border-white/30 hover:shadow-2xl hover:shadow-white/5 overflow-hidden">
                   
                   {/* 增强的六边形网格背景 */}
-                  <div className="absolute inset-0 opacity-20">
+                  <div className="absolute inset-0 opacity-15">
                     {[...Array(40)].map((_, i) => {
                       const row = Math.floor(i / 5)
                       const col = i % 5
                       const offsetX = row % 2 === 0 ? 0 : 35
                       return (
-                        <motion.div
+                        <div
                           key={i}
-                          className="absolute border"
+                          className="absolute border border-white/10"
                           style={{
                             left: `${col * 70 + offsetX - 35}px`,
                             top: `${row * 60 - 30}px`,
                             width: '50px',
                             height: '50px',
                             clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                            borderColor: 'rgba(255, 255, 255, 0.1)',
-                          }}
-                          animate={{
-                            opacity: hoveredIndex === index ? [0.3, 1, 0.3] : [0.2, 0.5, 0.2],
-                            borderColor: hoveredIndex === index 
-                              ? ['rgba(255, 255, 255, 0.1)', 'rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.1)']
-                              : ['rgba(255, 255, 255, 0.1)', 'rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.1)'],
-                          }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            delay: i * 0.05,
-                            ease: 'easeInOut',
                           }}
                         />
                       )
@@ -247,30 +244,21 @@ export default function WhatWeDoSection() {
                 {/* 玻璃态卡片（移动端版） */}
                 <div className="relative p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-md border border-white/10 overflow-hidden">
                   {/* 六边形网格背景 */}
-                  <div className="absolute inset-0 opacity-15">
+                  <div className="absolute inset-0 opacity-10">
                     {[...Array(24)].map((_, i) => {
                       const row = Math.floor(i / 4)
                       const col = i % 4
                       const offsetX = row % 2 === 0 ? 0 : 30
                       return (
-                        <motion.div
+                        <div
                           key={i}
-                          className="absolute border"
+                          className="absolute border border-white/10"
                           style={{
                             left: `${col * 60 + offsetX - 30}px`,
                             top: `${row * 50 - 25}px`,
                             width: '40px',
                             height: '40px',
                             clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                            borderColor: 'rgba(255, 255, 255, 0.1)',
-                          }}
-                          animate={{
-                            opacity: [0.2, 0.5, 0.2],
-                          }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            delay: i * 0.08,
                           }}
                         />
                       )

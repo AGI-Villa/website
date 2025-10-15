@@ -5,19 +5,16 @@ import Image from 'next/image'
 
 export default function Footer() {
   const socialLinks = [
-    { name: 'Feishu Community', href: '#', icon: '📱' },
     { name: 'WeChat Official Account', href: '#', icon: '💬' },
     { name: 'Red Book', href: '#', icon: '📕' },
-    { name: 'Bilibili', href: '#', icon: '📺' },
+    { name: 'Twitter', href: '#', icon: '🐦' },
     { name: 'LinkedIn', href: '#', icon: '💼' },
   ]
 
   const quickLinks = [
-    { name: 'About Us', href: '#about' },
-    { name: 'What We Do', href: '#what-we-do' },
-    { name: 'Join Ecosystem', href: '#ecosystem' },
     { name: 'Events', href: '#events' },
-    { name: 'Our Impact', href: '#impact' },
+    { name: 'Blogs', href: '#blogs' },
+    { name: 'Join Us', href: '#join' },
   ]
 
   return (

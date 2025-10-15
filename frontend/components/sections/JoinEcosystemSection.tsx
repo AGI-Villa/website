@@ -54,17 +54,15 @@ const roles: EcosystemRole[] = [
 // 合作伙伴数据
 const partners: Partner[] = [
   { id: 'linkloud', name: 'LinkLoud', logo: '/images/logo/linkloud.png' },
-  { id: 'partner-2', name: 'Partner 2' },
-  { id: 'partner-3', name: 'Partner 3' },
-  { id: 'partner-4', name: 'Partner 4' },
-  { id: 'partner-5', name: 'Partner 5' },
-  { id: 'partner-6', name: 'Partner 6' },
-  { id: 'partner-7', name: 'Partner 7' },
-  { id: 'partner-8', name: 'Partner 8' },
-  { id: 'partner-9', name: 'Partner 9' },
-  { id: 'partner-10', name: 'Partner 10' },
-  { id: 'partner-11', name: 'Partner 11' },
-  { id: 'partner-12', name: 'Partner 12' },
+  { id: 'aigongfang', name: 'AI工坊', logo: '/images/logo/aigongwang.png' },
+  { id: 'chuhaiqu', name: '出海区', logo: '/images/logo/chuhaiqu.PNG' },
+  { id: 'chuhaitongxuehui', name: '出海同学会', logo: '/images/logo/chuhaitongxuehui.png' },
+  { id: 'datawhale', name: 'DataWhale', logo: '/images/logo/datawhale.PNG' },
+  { id: 'founderpark', name: 'Founder Park', logo: '/images/logo/founderpark.png' },
+  { id: 'hackathonweekly', name: 'Hackathon Weekly', logo: '/images/logo/hackthonweekly.png' },
+  { id: 'slush', name: 'Slush', logo: '/images/logo/slush.svg' },
+  { id: 'way2agi', name: 'Way2AGI', logo: '/images/logo/way2agi.PNG' },
+  { id: 'youxin', name: '有信', logo: '/images/logo/youxin.png' },
 ]
 
 export default function JoinEcosystemSection() {

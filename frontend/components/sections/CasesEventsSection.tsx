@@ -183,7 +183,7 @@ export default function CasesEventsSection() {
             </span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Join our regular workshops, hackathons, and founder meetups to connect, learn, and grow
+            Join our regular live streams, workshops, hackathons, and founder meetups to connect, learn, and grow
           </p>
         </motion.div>
 

@@ -332,7 +332,7 @@ export default function VisionResponsibilitySection() {
 
         {/* 引言文字 */}
         <motion.div
-          className="text-center mt-12 md:mt-16 mb-8 md:mb-10"
+          className="text-center mt-12 md:mt-16 mb-4 md:mb-6"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.8 }}
@@ -346,17 +346,6 @@ export default function VisionResponsibilitySection() {
           </blockquote>
         </motion.div>
 
-        {/* CTA 按钮 */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 2 }}
-        >
-          <Button variant="outline" size="lg">
-            Learn More About Our Impact
-          </Button>
-        </motion.div>
       </div>
     </section>
   )

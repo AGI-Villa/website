@@ -2,14 +2,19 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Button from '@/components/ui/Button'
 import Link from 'next/link'
 import Image from 'next/image'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  weight: ['700', '800'],
+  display: 'swap',
+})
 
 const navItems = [
   { name: 'Events', href: '#events' },
   { name: 'Blogs', href: '#blogs' },
-  { name: 'Contact Us', href: '#contact' },
   { name: 'Join Us', href: '#join' },
 ]
 
@@ -30,25 +35,31 @@ export default function Navbar() {
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-black/80 backdrop-blur-lg border-b border-gray-800'
-            : 'bg-transparent'
+            ? 'bg-black/90 backdrop-blur-lg shadow-lg shadow-purple-500/10'
+            : 'bg-black/40 backdrop-blur-md'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
       >
+        {/* Bottom gradient border with glow effect */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-transparent via-purple-500/5 to-transparent blur-sm" />
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center group">
+            <Link href="/" className="flex items-center gap-3 group">
               <Image
                 src="/images/logo/agi-villa.png"
                 alt="AGI Villa Logo"
-                width={140}
+                width={40}
                 height={40}
                 className="group-hover:scale-105 transition-transform h-8 sm:h-10 w-auto"
                 priority
               />
+              <span className={`text-xl sm:text-2xl font-extrabold text-white group-hover:text-gray-100 transition-colors duration-300 tracking-tight uppercase ${inter.className}`}>
+                AGI Villa
+              </span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -57,21 +68,13 @@ export default function Navbar() {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-gray-800/50"
+                  className="relative px-4 py-2 text-sm text-gray-300 hover:text-white transition-all duration-300 rounded-lg group hover:scale-105"
                 >
-                  {item.name}
+                  <span className="relative z-10">{item.name}</span>
+                  {/* Gradient underline animation */}
+                  <span className="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
                 </a>
               ))}
-            </div>
-
-            {/* Desktop CTA Buttons */}
-            <div className="hidden lg:flex items-center space-x-3">
-              <Button variant="outline" size="sm" href="#login">
-                Log In
-              </Button>
-              <Button variant="primary" size="sm" href="#signup">
-                Get Started
-              </Button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -130,25 +133,17 @@ export default function Navbar() {
                   <motion.a
                     key={item.name}
                     href={item.href}
-                    className="block px-4 py-3 text-base text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-lg transition-colors"
+                    className="relative block px-4 py-3 text-base text-gray-300 hover:text-white rounded-lg transition-all duration-300 group"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    {item.name}
+                    <span className="relative z-10">{item.name}</span>
+                    {/* Gradient underline animation for mobile */}
+                    <span className="absolute bottom-2 left-4 right-4 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
                   </motion.a>
                 ))}
-
-                {/* Mobile CTA Buttons */}
-                <div className="pt-4 space-y-3 border-t border-gray-800">
-                  <Button variant="outline" size="md" href="#login" className="w-full">
-                    Log In
-                  </Button>
-                  <Button variant="primary" size="md" href="#signup" className="w-full">
-                    Get Started
-                  </Button>
-                </div>
               </div>
             </motion.div>
           </>

@@ -71,17 +71,31 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
-            className="mb-8"
+            className="mb-8 relative"
           >
+            {/* Pulse animation background */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-20 blur-xl animate-pulse" />
+            
             <a
               href="#events"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-colors group"
+              className="relative inline-flex items-center gap-3 px-5 py-3 rounded-full bg-gradient-to-r from-purple-500/10 via-purple-400/10 to-blue-500/10 backdrop-blur-sm border border-purple-400/30 hover:border-purple-400/50 transition-all duration-300 group shadow-lg shadow-purple-500/20"
             >
-              <span className="text-sm text-gray-400">
-                AGI Villa Global Innovation Summit 2026
+              {/* Icon */}
+              <span className="text-lg">✨</span>
+              
+              {/* Badge label */}
+              <span className="px-2 py-0.5 text-xs font-semibold bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full">
+                2026
               </span>
+              
+              {/* Event name */}
+              <span className="text-sm font-medium text-white">
+                AGI Villa Global Innovation Summit
+              </span>
+              
+              {/* Arrow */}
               <svg
-                className="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform"
+                className="w-4 h-4 text-purple-400 group-hover:translate-x-1 transition-transform"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -129,7 +143,7 @@ export default function HeroSection() {
             transition={{ delay: 0.5, duration: 0.8 }}
           >
             AGI Villa is a{' '}
-            <span className="text-white">
+            <span className="font-bold bg-gradient-to-r from-purple-400 via-purple-300 to-blue-400 bg-clip-text text-transparent">
               Community-Driven, AI-Native Venture Studio
             </span>{' '}
             that helps founders validate, build and scale startups faster and
@@ -137,14 +151,17 @@ export default function HeroSection() {
           </motion.p>
 
           {/* Tagline */}
-          <motion.p
-            className="text-sm text-gray-500 mb-12"
+          <motion.div
+            className="mb-12 flex items-center gap-3"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
           >
-            &ldquo;The world&rsquo;s first community-driven venture studio.&rdquo;
-          </motion.p>
+            <div className="w-1 h-8 bg-gradient-to-b from-purple-500 to-blue-500 rounded-full" />
+            <p className="text-sm text-gray-400 italic tracking-wide">
+              &ldquo;The world&rsquo;s first community-driven venture studio.&rdquo;
+            </p>
+          </motion.div>
 
           {/* CTA Buttons */}
           <motion.div

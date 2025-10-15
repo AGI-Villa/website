@@ -2,10 +2,11 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
+import Image from 'next/image'
 
 interface ContentCardProps {
-  title: string
-  content: string
+  title: string | React.ReactNode
+  content: string | React.ReactNode
   side: 'left' | 'right'
   index: number
 }
@@ -17,15 +18,23 @@ function ContentCard({ title, content, side, index }: ContentCardProps) {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
-      className={`relative ${side === 'left' ? 'pr-8 lg:pr-16 text-right' : 'pl-8 lg:pl-16 text-left'}`}
+      className={`relative ${side === 'left' ? 'pr-8 lg:pr-16' : 'pl-8 lg:pl-16'}`}
     >
       <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-white/[0.07] hover:border-white/20 transition-all duration-300">
-        <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
-          {title}
-        </h3>
-        <p className="text-gray-400 leading-relaxed">
-          {content}
-        </p>
+        {title && (
+          <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 text-left">
+            {title}
+          </h3>
+        )}
+        {typeof content === 'string' ? (
+          <p className="text-gray-400 leading-relaxed text-left">
+            {content}
+          </p>
+        ) : (
+          <div className="text-gray-400 leading-relaxed text-left w-full">
+            {content}
+          </div>
+        )}
       </div>
     </motion.div>
   )
@@ -44,18 +53,78 @@ export default function AboutSection() {
   const contents = [
     {
       side: 'left' as const,
-      title: 'Mission',
-      content: 'Achieving success together with founders, through community.',
+      title: 'Achieving success together with founders, through community',
+      content: (
+        <p>
+          Founded in 2025, AGI Villa is a{' '}
+          <span className="text-white font-semibold">community-driven venture studio</span>{' '}
+          helping founders go from idea to impact faster than ever. By uniting{' '}
+          <span className="text-white font-semibold">people</span>,{' '}
+          <span className="text-white font-semibold">capital</span>, and{' '}
+          <span className="text-white font-semibold">AI-native infrastructure</span>, we turn{' '}
+          <span className="text-white font-semibold">collective intelligence</span>{' '}
+          into real-world innovation.
+        </p>
+      ),
     },
     {
       side: 'right' as const,
-      title: 'Vision',
-      content: 'To become the world\'s most influential community-driven AI-Native venture studio.',
+      title: '',
+      content: (
+        <div className="space-y-6 w-full">
+          <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden">
+            <Image
+              src="/images/team/together.jpg"
+              alt="AGI Villa Community"
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+          <p className="text-gray-300 text-base sm:text-lg leading-loose text-center px-2 whitespace-normal break-words">
+            More than a workspace — a community where founders, friends, and ideas grow together.
+          </p>
+        </div>
+      ),
     },
     {
       side: 'left' as const,
       title: 'Values',
-      content: 'Co-creation & Sharing / Long-termism / Technology-driven / Openness & Inclusiveness',
+      content: (
+        <div className="space-y-4">
+          <div className="flex items-start gap-3">
+            <span className="text-purple-400 text-xl flex-shrink-0 mt-0.5">✓</span>
+            <div>
+              <div className="text-white font-semibold mb-1">Co-creation & Sharing</div>
+              <p className="text-gray-400 text-sm">Building together, growing together</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start gap-3">
+            <span className="text-purple-400 text-xl flex-shrink-0 mt-0.5">✓</span>
+            <div>
+              <div className="text-white font-semibold mb-1">Long-termism</div>
+              <p className="text-gray-400 text-sm">Focused on sustainable impact, not quick wins</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start gap-3">
+            <span className="text-purple-400 text-xl flex-shrink-0 mt-0.5">✓</span>
+            <div>
+              <div className="text-white font-semibold mb-1">Technology-driven</div>
+              <p className="text-gray-400 text-sm">Leveraging AI-native tools to accelerate innovation</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start gap-3">
+            <span className="text-purple-400 text-xl flex-shrink-0 mt-0.5">✓</span>
+            <div>
+              <div className="text-white font-semibold mb-1">Openness & Inclusiveness</div>
+              <p className="text-gray-400 text-sm">Welcoming diverse perspectives and backgrounds</p>
+            </div>
+          </div>
+        </div>
+      ),
     },
   ]
 
@@ -258,16 +327,37 @@ export default function AboutSection() {
           </motion.div>
 
           {/* Content Grid */}
-          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-24 lg:gap-16">
-            {contents.map((item, index) => (
-              <div
-                key={index}
-                className={`relative ${
-                  item.side === 'left'
-                    ? 'lg:col-start-1 lg:col-end-2'
-                    : 'lg:col-start-2 lg:col-end-3'
-                }`}
-              >
+          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-24 lg:gap-y-0 lg:gap-x-0 lg:auto-rows-[3rem]">
+            {contents.map((item, index) => {
+              // 计算每个卡片的起始行，创造错落效果
+              const getRowStart = (idx: number) => {
+                if (idx === 0) return 1   // Mission 从第1行开始
+                if (idx === 1) return 9   // Vision 从第9行开始 (比 Mission 低8行 = 24rem)
+                if (idx === 2) return 21  // Values 从第21行开始 (比 Vision 低12行 = 36rem)
+                return idx * 10 + 1
+              }
+              
+              const getRowSpan = (idx: number) => {
+                if (idx === 0) return 8   // Mission 跨越8行
+                if (idx === 1) return 10  // Vision (图片) 跨越10行
+                if (idx === 2) return 12  // Values (列表) 跨越12行
+                return 8
+              }
+              
+              return (
+                <div
+                  key={index}
+                  className={`relative ${
+                    item.side === 'left'
+                      ? 'lg:col-start-1 lg:col-end-2'
+                      : 'lg:col-start-2 lg:col-end-3'
+                  }`}
+                  style={{
+                    gridRowStart: getRowStart(index),
+                    gridRowEnd: `span ${getRowSpan(index)}`
+                  }}
+                >
+              
                 {/* 连接点 */}
                 <motion.div
                   initial={{ scale: 0 }}
@@ -285,8 +375,9 @@ export default function AboutSection() {
                   side={item.side}
                   index={index}
                 />
-              </div>
-            ))}
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>

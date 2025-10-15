@@ -33,3 +33,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# AGI Villa Project - Override global gitignore for lib directory
+# This ensures our lib/ directory is tracked
+!lib/
+!lib/**

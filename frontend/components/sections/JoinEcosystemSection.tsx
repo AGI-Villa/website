@@ -54,7 +54,7 @@ const roles: EcosystemRole[] = [
 // 合作伙伴数据
 const partners: Partner[] = [
   { id: 'linkloud', name: 'LinkLoud', logo: '/images/logo/linkloud.png' },
-  { id: 'aigongfang', name: 'AI工坊', logo: '/images/logo/aigongwang.png' },
+  { id: 'aigongfang', name: 'AI工坊', logo: '/images/logo/aigongfang.png' },
   { id: 'chuhaiqu', name: '出海区', logo: '/images/logo/chuhaiqu.PNG' },
   { id: 'chuhaitongxuehui', name: '出海同学会', logo: '/images/logo/chuhaitongxuehui.png' },
   { id: 'datawhale', name: 'DataWhale', logo: '/images/logo/datawhale.PNG' },

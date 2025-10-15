@@ -2,6 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState } from 'react'
+import Image from 'next/image'
 import Button from '../ui/Button'
 
 interface Commitment {
@@ -330,12 +331,65 @@ export default function VisionResponsibilitySection() {
           })}
         </div>
 
-        {/* 引言文字 */}
+        {/* Charity Box 合作介绍 */}
         <motion.div
-          className="text-center mt-12 md:mt-16 mb-4 md:mb-6"
+          className="text-center mt-12 md:mt-16 mb-8 md:mb-12"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1.8 }}
+          transition={{ duration: 0.8, delay: 1.6 }}
+        >
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-8 max-w-3xl mx-auto px-4">
+            {/* Charity Box Logo */}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.6, delay: 1.8 }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="relative w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28">
+                <Image
+                  src="/images/logo/yihe.png"
+                  alt="Charity Box Logo"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 80px, (max-width: 1024px) 96px, 112px"
+                />
+              </div>
+            </motion.div>
+
+            {/* 分隔线 */}
+            <motion.div
+              className="hidden sm:block w-px h-16 md:h-20 lg:h-24 bg-white/30"
+              initial={{ opacity: 0, scaleY: 0 }}
+              animate={isInView ? { opacity: 1, scaleY: 1 } : {}}
+              transition={{ duration: 0.6, delay: 1.9 }}
+            />
+
+            {/* 合作文字 */}
+            <motion.div
+              className="text-center sm:text-left"
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.6, delay: 2.0 }}
+            >
+              <p className="text-base sm:text-lg md:text-xl text-white font-medium leading-relaxed">
+                We work with{' '}
+                <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent font-semibold">
+                  Charity Box
+                </span>{' '}
+                to build effective philanthropy
+              </p>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* 引言文字 */}
+        <motion.div
+          className="text-center mb-4 md:mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 2.2 }}
         >
           <blockquote className="relative inline-block">
             <div className="absolute -left-4 md:-left-6 -top-2 text-3xl md:text-4xl text-white/10">&ldquo;</div>

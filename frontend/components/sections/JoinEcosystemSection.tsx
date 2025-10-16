@@ -53,7 +53,7 @@ const roles: EcosystemRole[] = [
 
 // 合作伙伴数据
 const partners: Partner[] = [
-  { id: 'linkloud', name: 'LinkLoud', logo: '/images/logo/linkloud.png' },
+  { id: 'linkloud', name: 'LinkLoud', logo: '/images/logo/linkloud-v2.png' },
   { id: 'aigongfang', name: 'AI工坊', logo: '/images/logo/aigongfang.png' },
   { id: 'chuhaiqu', name: '出海区', logo: '/images/logo/chuhaiqu.PNG' },
   { id: 'chuhaitongxuehui', name: '出海同学会', logo: '/images/logo/chuhaitongxuehui.png' },
@@ -353,6 +353,18 @@ export default function JoinEcosystemSection() {
                         width={120}
                         height={80}
                         className="object-contain w-full h-full transition-all duration-300 group-hover:scale-110"
+                        onError={(e) => {
+                          // 如果图片加载失败，显示文字备用方案
+                          const target = e.target as HTMLImageElement
+                          target.style.display = 'none'
+                          const parent = target.parentElement
+                          if (parent) {
+                            const fallback = document.createElement('div')
+                            fallback.className = 'text-gray-500 text-sm font-mono transition-all duration-300 group-hover:text-gray-300 group-hover:scale-110'
+                            fallback.textContent = partner.name
+                            parent.appendChild(fallback)
+                          }
+                        }}
                       />
                     ) : (
                       <div className="text-gray-500 text-sm font-mono transition-all duration-300 group-hover:text-gray-300 group-hover:scale-110">

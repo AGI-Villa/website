@@ -65,6 +65,26 @@ const partners: Partner[] = [
   { id: 'youxin', name: '有信', logo: '/images/logo/youxin.png' },
 ]
 
+// VC投资机构数据
+interface VCPartner extends Partner {
+  tier: 'tier1' | 'tier2' | 'tier3' // 投资机构等级
+  investmentStage?: string // 投资阶段
+  description?: string // 简短描述
+}
+
+const vcPartners: VCPartner[] = [
+  { id: 'sequoia', name: 'Sequoia Capital', tier: 'tier1', investmentStage: 'Series A+', description: 'Leading VC' },
+  { id: 'a16z', name: 'Andreessen Horowitz', tier: 'tier1', investmentStage: 'Seed to Growth', description: 'Tech-focused VC' },
+  { id: 'accel', name: 'Accel Partners', tier: 'tier1', investmentStage: 'Early Stage', description: 'Global VC' },
+  { id: 'ggv', name: 'GGV Capital', tier: 'tier2', investmentStage: 'Growth Stage', description: 'Cross-border VC' },
+  { id: 'matrix', name: 'Matrix Partners', tier: 'tier2', investmentStage: 'Early Stage', description: 'Consumer & Enterprise' },
+  { id: 'lightspeed', name: 'Lightspeed Venture Partners', tier: 'tier2', investmentStage: 'Multi-stage', description: 'Technology VC' },
+  { id: 'insight', name: 'Insight Partners', tier: 'tier2', investmentStage: 'Growth Stage', description: 'Software-focused' },
+  { id: 'bessemer', name: 'Bessemer Venture Partners', tier: 'tier3', investmentStage: 'Early to Growth', description: 'B2B & Enterprise' },
+  { id: 'general', name: 'General Catalyst', tier: 'tier3', investmentStage: 'Multi-stage', description: 'Platform & Consumer' },
+  { id: 'firstmark', name: 'FirstMark Capital', tier: 'tier3', investmentStage: 'Early Stage', description: 'B2B & Consumer' },
+]
+
 export default function JoinEcosystemSection() {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
@@ -386,6 +406,122 @@ export default function JoinEcosystemSection() {
           >
             <p className="text-gray-500 text-sm">
               Join 100+ leading companies and investors in the AGI Villa ecosystem
+            </p>
+          </motion.div>
+        </motion.div>
+
+        {/* VC投资机构区域 */}
+        <motion.div
+          className="mt-24"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 2 }}
+        >
+          {/* 分隔线 */}
+          <div className="relative mb-16">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-white/10" />
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-black px-6 text-sm text-gray-400 uppercase tracking-wider">
+                Backed by Top-Tier VCs
+              </span>
+            </div>
+          </div>
+
+          {/* VC投资机构网格布局 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {vcPartners.map((vc, index) => (
+              <motion.div
+                key={vc.id}
+                className="group"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 2.2 + index * 0.1 }}
+                onMouseEnter={() => setIsScrolling(false)}
+                onMouseLeave={() => setIsScrolling(true)}
+              >
+                <div className={`
+                  relative p-6 rounded-2xl backdrop-blur-md border transition-all duration-500 
+                  hover:shadow-2xl cursor-pointer overflow-hidden
+                  ${vc.tier === 'tier1' 
+                    ? 'bg-gradient-to-br from-yellow-500/10 to-orange-500/5 border-yellow-500/30 hover:border-yellow-500/50 hover:shadow-yellow-500/20' 
+                    : vc.tier === 'tier2'
+                    ? 'bg-gradient-to-br from-blue-500/10 to-purple-500/5 border-blue-500/30 hover:border-blue-500/50 hover:shadow-blue-500/20'
+                    : 'bg-gradient-to-br from-white/10 to-white/5 border-white/20 hover:border-white/40 hover:shadow-white/10'
+                  }
+                `}>
+                  {/* 背景光效 */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className={`
+                      absolute inset-0 rounded-2xl blur-xl
+                      ${vc.tier === 'tier1' 
+                        ? 'bg-gradient-to-br from-yellow-500/20 to-orange-500/10' 
+                        : vc.tier === 'tier2'
+                        ? 'bg-gradient-to-br from-blue-500/20 to-purple-500/10'
+                        : 'bg-gradient-to-br from-white/10 to-white/5'
+                      }
+                    `} />
+                  </div>
+
+                  {/* 等级标识 */}
+                  <div className="relative z-10 flex items-start justify-between mb-4">
+                    <div className={`
+                      px-2 py-1 rounded-full text-xs font-semibold
+                      ${vc.tier === 'tier1' 
+                        ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30' 
+                        : vc.tier === 'tier2'
+                        ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                        : 'bg-white/10 text-gray-300 border border-white/20'
+                      }
+                    `}>
+                      {vc.tier === 'tier1' ? 'Tier 1' : vc.tier === 'tier2' ? 'Tier 2' : 'Tier 3'}
+                    </div>
+                    <div className="text-xs text-gray-500 group-hover:text-gray-300 transition-colors">
+                      {vc.investmentStage}
+                    </div>
+                  </div>
+
+                  {/* VC Logo 占位符 */}
+                  <div className="relative z-10 mb-4">
+                    <div className="w-16 h-16 mx-auto rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-2xl font-bold text-white/60 group-hover:text-white transition-colors">
+                        {vc.name.split(' ').map(word => word[0]).join('').slice(0, 2)}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* VC 名称 */}
+                  <h3 className="relative z-10 text-lg font-bold text-white mb-2 text-center group-hover:text-gray-100 transition-colors">
+                    {vc.name}
+                  </h3>
+
+                  {/* 描述 */}
+                  <p className="relative z-10 text-xs text-gray-400 text-center group-hover:text-gray-300 transition-colors">
+                    {vc.description}
+                  </p>
+
+                  {/* 悬停时的额外信息 */}
+                  <div className="absolute inset-0 bg-black/50 backdrop-blur-sm rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="text-sm font-semibold text-white mb-1">Investment Focus</div>
+                      <div className="text-xs text-gray-300">{vc.investmentStage}</div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* VC区域底部文字 */}
+          <motion.div
+            className="text-center mt-12"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8, delay: 2.8 }}
+          >
+            <p className="text-gray-500 text-sm">
+              Supported by world-class venture capital partners
             </p>
           </motion.div>
         </motion.div>

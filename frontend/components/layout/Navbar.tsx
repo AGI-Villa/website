@@ -49,13 +49,13 @@ export default function Navbar() {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 group-hover:scale-105 transition-transform">
+              <div className="relative w-12 h-8 sm:w-16 sm:h-10 group-hover:scale-105 transition-transform">
                 <Image
                   src="/images/logo/AGI_Villa.png"
                   alt="AGI Villa Logo"
                   fill
                   className="object-contain"
-                  sizes="(max-width: 640px) 32px, 40px"
+                  sizes="(max-width: 640px) 48px, 64px"
                 />
               </div>
             </Link>

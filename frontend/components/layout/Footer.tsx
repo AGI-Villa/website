@@ -55,13 +55,13 @@ export default function Footer() {
           >
             {/* Logo */}
             <div className="flex items-center gap-3 mb-4">
-              <div className="relative w-10 h-10">
+              <div className="relative w-20 h-12">
                 <Image
                   src="/images/logo/AGI_Villa.png"
                   alt="AGI Villa Logo"
                   fill
                   className="object-contain"
-                  sizes="40px"
+                  sizes="80px"
                 />
               </div>
             </div>

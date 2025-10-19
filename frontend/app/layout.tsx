@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'AGI Villa - Community-Driven, AI-Native Venture Studio',
     description: 'Empowering founders to achieve success through community.',
-    images: ['/images/logo/agi-villa.png'],
+    images: ['/images/logo/AGI_Villa.png'],
     creator: '@agivilla', // 替换为实际Twitter账号
   },
   verification: {

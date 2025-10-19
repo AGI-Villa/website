@@ -49,12 +49,15 @@ export default function Navbar() {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform">
-                <span className="text-white font-bold text-sm sm:text-base">AV</span>
+              <div className="relative w-8 h-8 sm:w-10 sm:h-10 group-hover:scale-105 transition-transform">
+                <Image
+                  src="/images/logo/AGI_Villa.png"
+                  alt="AGI Villa Logo"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 640px) 32px, 40px"
+                />
               </div>
-              <span className={`text-xl sm:text-2xl font-extrabold text-white group-hover:text-gray-100 transition-colors duration-300 tracking-tight uppercase ${inter.className}`}>
-                AGI Villa
-              </span>
             </Link>
 
             {/* Desktop Navigation */}

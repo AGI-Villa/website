@@ -68,6 +68,7 @@ const partners: Partner[] = [
 // VC投资机构数据
 const vcPartners: Partner[] = [
   { id: 'yunqi', name: '云启', logo: '/images/logo/yunqi.png' },
+  { id: 'jinqiu', name: '锦秋基金', logo: '/images/logo/jinqiu.png' },
 ]
 
 export default function JoinEcosystemSection() {
@@ -415,7 +416,7 @@ export default function JoinEcosystemSection() {
           </div>
 
           {/* VC投资机构Logo展示 */}
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-12">
             {vcPartners.map((vc, index) => (
               <motion.div
                 key={vc.id}

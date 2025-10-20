@@ -48,9 +48,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/favicon.ico',
-    shortcut: '/favicon.ico',
+    icon: '/images/logo/AGI_Villa.png',
+    apple: '/images/logo/AGI_Villa.png',
+    shortcut: '/images/logo/AGI_Villa.png',
   },
   manifest: '/manifest.json',
   openGraph: {
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     siteName: 'AGI Villa',
     images: [
       {
-        url: '/favicon.ico',
+        url: '/images/logo/AGI_Villa.png',
         width: 1200,
         height: 630,
         alt: 'AGI Villa - Community-Driven Venture Studio',
@@ -97,7 +97,7 @@ export default function RootLayout({
     name: 'AGI Villa',
     description: 'Community-Driven, AI-Native Venture Studio empowering founders to achieve success through community',
     url: 'https://agivilla.com',
-    logo: 'https://agivilla.com/favicon.ico',
+    logo: 'https://agivilla.com/images/logo/AGI_Villa.png',
     sameAs: [
       // 添加实际的社交媒体链接
       // 'https://twitter.com/agivilla',

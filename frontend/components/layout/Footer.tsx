@@ -1,9 +1,12 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import { useState } from 'react'
 
 export default function Footer() {
+  const [showQRCode, setShowQRCode] = useState(false)
+  
   const socialLinks = [
     { name: 'WeChat Official Account', href: '#', icon: '💬' },
     { name: 'Red Book', href: '#', icon: '📕' },
@@ -127,15 +130,27 @@ export default function Footer() {
             <ul className="space-y-3">
               {socialLinks.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-gray-400 text-sm hover:text-white transition-colors duration-300 inline-flex items-center gap-2 group"
-                  >
-                    <span className="text-base group-hover:scale-110 transition-transform duration-300">
-                      {link.icon}
-                    </span>
-                    {link.name}
-                  </a>
+                  {link.name === 'WeChat Official Account' ? (
+                    <button
+                      onClick={() => setShowQRCode(true)}
+                      className="text-gray-400 text-sm hover:text-white transition-colors duration-300 inline-flex items-center gap-2 group"
+                    >
+                      <span className="text-base group-hover:scale-110 transition-transform duration-300">
+                        {link.icon}
+                      </span>
+                      {link.name}
+                    </button>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-gray-400 text-sm hover:text-white transition-colors duration-300 inline-flex items-center gap-2 group"
+                    >
+                      <span className="text-base group-hover:scale-110 transition-transform duration-300">
+                        {link.icon}
+                      </span>
+                      {link.name}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -177,6 +192,53 @@ export default function Footer() {
           boxShadow: '0 0 20px rgba(255,255,255,0.1)',
         }}
       />
+
+      {/* 微信二维码模态框 */}
+      <AnimatePresence>
+        {showQRCode && (
+          <motion.div
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowQRCode(false)}
+          >
+            <motion.div
+              className="relative bg-white rounded-2xl p-6 shadow-2xl"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* 关闭按钮 */}
+              <button
+                className="absolute top-4 right-4 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-200 transition-all duration-300"
+                onClick={() => setShowQRCode(false)}
+              >
+                <span className="text-lg">×</span>
+              </button>
+              
+              {/* 标题 */}
+              <div className="text-center mb-4">
+                <h3 className="text-lg font-bold text-gray-800">WeChat Official Account</h3>
+                <p className="text-sm text-gray-600 mt-1">Scan to follow AGI Villa</p>
+              </div>
+              
+              {/* 二维码图片 */}
+              <div className="flex justify-center">
+                <Image
+                  src="/images/logo/AGI Villa QRcode.jpg"
+                  alt="AGI Villa WeChat QR Code"
+                  width={200}
+                  height={200}
+                  className="rounded-lg"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </footer>
   )
 }

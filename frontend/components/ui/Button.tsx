@@ -14,7 +14,7 @@ interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'outline'
   size?: 'sm' | 'md' | 'lg'
   href?: string
-  onClick?: () => void
+  onClick?: (e?: React.MouseEvent) => void
   className?: string
 }
 
@@ -36,12 +36,12 @@ export default function Button({
   const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null)
   const particleIdRef = useRef(0)
 
-  const baseStyles = 'relative inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden'
+  const baseStyles = 'relative inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden group'
   
   const variants = {
     primary: 'bg-white text-black hover:bg-gray-200 focus:ring-white',
     secondary: 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 focus:ring-blue-500',
-    outline: 'bg-transparent border border-gray-700 text-white hover:border-gray-500 hover:bg-gray-800/50 focus:ring-gray-500',
+    outline: 'bg-transparent border border-gray-700 text-white hover:border-white hover:bg-white/10 hover:text-white focus:ring-gray-500',
   }
   
   const sizes = {
@@ -114,7 +114,7 @@ export default function Button({
       </div>
 
       {/* 悬停光晕 */}
-      <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent blur-sm" />
       </div>
     </>

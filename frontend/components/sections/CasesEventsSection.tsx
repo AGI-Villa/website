@@ -7,69 +7,71 @@ import Button from '../ui/Button'
 interface Event {
   id: string
   title: string
-  type: 'Workshop' | 'Hackathon' | 'Meetup'
+  type: 'Workshop' | 'Hackathon' | 'Meetup' | 'Conference' | 'Demo Day'
   date: string
   time: string
   location: string
+  isOnline: boolean
   description: string
-  imageUrl?: string
+  posterUrl?: string
   status: 'upcoming' | 'live' | 'completed'
+  registrationUrl?: string
   attendees?: number
 }
 
-// 示例活动数据
+// 出海增长直播活动数据
 const events: Event[] = [
   {
     id: '1',
-    title: 'AI Product Workshop',
-    type: 'Workshop',
-    date: 'Dec 20, 2025',
-    time: '2:00 PM - 5:00 PM',
-    location: 'AGI Villa HQ',
-    description: 'Learn how to build AI-powered products from 0 to 1 with industry experts',
+    title: 'Overseas Growth Panorama: From Traffic Acquisition to Commercialization Closed-Loop',
+    type: 'Conference',
+    date: 'Oct 22, 2025',
+    time: '8:30 PM - 9:30 PM',
+    location: 'WeChat Video Live',
+    isOnline: true,
+    description: 'Deep dive into overseas growth strategies, from channel awareness to commercialization closed-loop',
+    posterUrl: '/images/events/chuhaizhibo1022.png',
     status: 'upcoming',
+    registrationUrl: 'https://example.com/register/overseas-growth',
   },
   {
     id: '2',
-    title: 'AGI Hackathon 2025',
-    type: 'Hackathon',
-    date: 'Jan 15-17, 2026',
-    time: '48 Hours',
-    location: 'Innovation Center',
-    description: 'Build the future of AI in 48 hours. $50K in prizes for the best teams',
-    status: 'upcoming',
+    title: 'Overseas Growth Panorama: From Traffic Acquisition to Commercialization Closed-Loop',
+    type: 'Conference',
+    date: 'Oct 15, 2025',
+    time: '8:30 PM - 9:30 PM',
+    location: 'WeChat Video Live',
+    isOnline: true,
+    description: 'In-depth conversation with Rockbase founder Qi Da, sharing global growth strategies and omnichannel cold-start experiences',
+    posterUrl: '/images/events/chuhaizhibo1015.jpg',
+    status: 'completed',
+    registrationUrl: 'https://mp.weixin.qq.com/s/jxMQUx_fjjThyT3RkrD66g',
   },
   {
     id: '3',
-    title: 'Founder Monthly Meetup',
-    type: 'Meetup',
-    date: 'Dec 5, 2025',
-    time: '6:00 PM - 9:00 PM',
-    location: 'Online + Offline',
-    description: 'Connect with fellow founders, share experiences, and build your network',
+    title: 'Overseas Growth Panorama: From Traffic Acquisition to Commercialization Closed-Loop',
+    type: 'Conference',
+    date: 'Oct 8, 2025',
+    time: '8:30 PM - 9:30 PM',
+    location: 'WeChat Video Live',
+    isOnline: true,
+    description: 'Deep analysis of SEO and influencer marketing strategies, exploring traffic acquisition secrets on YouTube and TikTok platforms',
+    posterUrl: '/images/events/chuhaizhibo1008.jpg',
     status: 'completed',
-    attendees: 45,
+    registrationUrl: 'https://mp.weixin.qq.com/s/PtnSnojEgIHVFUTxrnPGww',
   },
   {
     id: '4',
-    title: 'Fundraising Masterclass',
-    type: 'Workshop',
-    date: 'Nov 20, 2025',
-    time: '3:00 PM - 6:00 PM',
-    location: 'AGI Villa HQ',
-    description: 'Master the art of pitching and raising capital from top VCs',
+    title: 'Overseas Growth Panorama: From Traffic Acquisition to Commercialization Closed-Loop',
+    type: 'Conference',
+    date: 'Sep 28, 2025',
+    time: '8:30 PM - 9:30 PM',
+    location: 'WeChat Video Live',
+    isOnline: true,
+    description: 'Product and localization market matching strategy sharing, helping companies accurately target overseas user groups',
+    posterUrl: '/images/events/chuhaizhibo0928.jpg',
     status: 'completed',
-    attendees: 32,
-  },
-  {
-    id: '5',
-    title: 'AI Ethics Roundtable',
-    type: 'Meetup',
-    date: 'Jan 25, 2026',
-    time: '7:00 PM - 9:00 PM',
-    location: 'Online',
-    description: 'Discuss the ethical implications of AI and how to build responsibly',
-    status: 'upcoming',
+    registrationUrl: 'https://mp.weixin.qq.com/s/oHuhSgjbK6uGox4Ou82lNQ',
   },
 ]
 
@@ -77,6 +79,7 @@ export default function CasesEventsSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
   const [direction, setDirection] = useState(0)
+  const [selectedPoster, setSelectedPoster] = useState<string | null>(null)
   
   // 固定星星位置，避免重新渲染时位置变化
   const stars = useRef(
@@ -231,29 +234,58 @@ export default function CasesEventsSection() {
                       className={`
                         relative w-[500px] rounded-2xl overflow-hidden
                         bg-white/5 backdrop-blur-sm border border-white/10
-                        ${isCenter ? 'cursor-default' : 'cursor-pointer'}
+                        cursor-pointer
                         transition-all duration-300
+                        ${!isCenter ? 'blur-sm opacity-40' : ''}
                       `}
-                      onClick={() => {
+                      onClick={(e) => {
+                        // 只处理非中心卡片的点击，中心卡片不处理点击事件
                         if (!isCenter) {
                           if (position < 0) handlePrevious()
                           else handleNext()
                         }
                       }}
                     >
-                      {/* 图片区域 */}
-                      <div className={`relative h-64 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden ${!isCenter ? 'blur-sm' : ''}`}>
-                        {/* 占位图片 */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="text-gray-600 text-6xl">
-                            {event.type === 'Workshop' && '🎓'}
-                            {event.type === 'Hackathon' && '💻'}
-                            {event.type === 'Meetup' && '🤝'}
+                      {/* 海报区域 */}
+                      <div className="relative h-72 bg-gradient-to-br from-gray-800 to-gray-900 overflow-hidden">
+                        {/* 活动海报或占位图 */}
+                        {event.posterUrl ? (
+                          <img
+                            src={event.posterUrl}
+                            alt={event.title}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="text-gray-600 text-6xl">
+                              {event.type === 'Workshop' && '🎓'}
+                              {event.type === 'Hackathon' && '💻'}
+                              {event.type === 'Meetup' && '🤝'}
+                              {event.type === 'Conference' && '🎤'}
+                              {event.type === 'Demo Day' && '🚀'}
+                            </div>
                           </div>
-                        </div>
+                        )}
 
-                        {/* 状态标签 */}
-                        <div className="absolute top-4 right-4">
+                        {/* 查看完整海报按钮 */}
+                        {isCenter && event.posterUrl && (
+                          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20">
+                            <button
+                              className="px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/30 rounded-full text-white text-sm font-medium hover:bg-white/30 transition-all duration-300 hover:scale-105 cursor-pointer"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                if (event.posterUrl) {
+                                  setSelectedPoster(event.posterUrl)
+                                }
+                              }}
+                            >
+                              👁️ View Full Poster
+                            </button>
+                          </div>
+                        )}
+
+                        {/* 状态标签 - 右上角 */}
+                        <div className="absolute top-4 right-4 pointer-events-none">
                           <div
                             className={`
                               px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider
@@ -267,17 +299,30 @@ export default function CasesEventsSection() {
                           </div>
                         </div>
 
-                        {/* 类型标签 */}
-                        <div className="absolute top-4 left-4">
+                        {/* 类型标签 - 左上角 */}
+                        <div className="absolute top-4 left-4 pointer-events-none">
                           <div className="px-3 py-1 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-sm border border-white/20 text-white">
                             {event.type}
+                          </div>
+                        </div>
+
+                        {/* 线上/线下标识 */}
+                        <div className="absolute bottom-4 right-4 pointer-events-none">
+                          <div className={`
+                            px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm border
+                            ${event.isOnline 
+                              ? 'bg-blue-500/20 border-blue-500/50 text-blue-300' 
+                              : 'bg-orange-500/20 border-orange-500/50 text-orange-300'
+                            }
+                          `}>
+                            {event.isOnline ? '🌐 线上' : '📍 线下'}
                           </div>
                         </div>
 
                         {/* 中心聚光效果 */}
                         {isCenter && (
                           <motion.div
-                            className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
+                            className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.3 }}
@@ -286,33 +331,30 @@ export default function CasesEventsSection() {
                       </div>
 
                       {/* 内容区域 */}
-                      <div className={`p-6 ${!isCenter ? 'blur-sm' : ''}`}>
-                        <h3 className="text-2xl font-bold text-white mb-3">
+                      <div className="p-6">
+                        {/* 活动标题 */}
+                        <h3 className="text-2xl font-bold text-white mb-4">
                           {event.title}
                         </h3>
 
-                        <div className="space-y-2 mb-4">
-                          <div className="flex items-center text-gray-400 text-sm">
-                            <span className="mr-2">📅</span>
-                            <span>{event.date}</span>
+                        {/* 基本信息 */}
+                        <div className="space-y-3 mb-4">
+                          <div className="flex items-center text-gray-300 text-sm">
+                            <span className="mr-3 text-purple-400">📅</span>
+                            <span className="font-medium">{event.date}</span>
                           </div>
-                          <div className="flex items-center text-gray-400 text-sm">
-                            <span className="mr-2">⏰</span>
+                          <div className="flex items-center text-gray-300 text-sm">
+                            <span className="mr-3 text-blue-400">⏰</span>
                             <span>{event.time}</span>
                           </div>
-                          <div className="flex items-center text-gray-400 text-sm">
-                            <span className="mr-2">📍</span>
+                          <div className="flex items-center text-gray-300 text-sm">
+                            <span className="mr-3 text-green-400">📍</span>
                             <span>{event.location}</span>
                           </div>
-                          {event.attendees && (
-                            <div className="flex items-center text-gray-400 text-sm">
-                              <span className="mr-2">👥</span>
-                              <span>{event.attendees} attendees</span>
-                            </div>
-                          )}
                         </div>
 
-                        <p className="text-gray-300 text-sm mb-6 line-clamp-2">
+                        {/* 一句话介绍 */}
+                        <p className="text-gray-400 text-sm mb-6 leading-relaxed">
                           {event.description}
                         </p>
 
@@ -324,17 +366,39 @@ export default function CasesEventsSection() {
                             transition={{ delay: 0.2 }}
                           >
                             {event.status === 'upcoming' && (
-                              <Button variant="primary" className="w-full">
+                              <Button 
+                                variant="primary" 
+                                className="w-full"
+                                onClick={() => {
+                                  // TODO: Add registration functionality
+                                }}
+                              >
                                 Register Now
                               </Button>
                             )}
                             {event.status === 'live' && (
-                              <Button variant="primary" className="w-full">
+                              <Button 
+                                variant="primary" 
+                                className="w-full"
+                                onClick={() => {
+                                  if (event.registrationUrl) {
+                                    window.open(event.registrationUrl, '_blank')
+                                  }
+                                }}
+                              >
                                 Join Now
                               </Button>
                             )}
                             {event.status === 'completed' && (
-                              <Button variant="outline" className="w-full">
+                              <Button 
+                                variant="outline" 
+                                className="w-full"
+                                onClick={() => {
+                                  if (event.registrationUrl) {
+                                    window.open(event.registrationUrl, '_blank')
+                                  }
+                                }}
+                              >
                                 View Recap
                               </Button>
                             )}
@@ -415,6 +479,42 @@ export default function CasesEventsSection() {
           </motion.div>
         </div>
       </div>
+
+      {/* 海报模态框 */}
+      {selectedPoster && (
+        <div 
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          onClick={() => {
+            console.log('点击背景关闭模态框')
+            setSelectedPoster(null)
+          }}
+        >
+          <div 
+            className="relative max-w-4xl max-h-[90vh] bg-white rounded-2xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* 关闭按钮 */}
+            <button
+              className="absolute top-4 right-4 z-10 w-10 h-10 bg-black/20 rounded-full flex items-center justify-center text-white hover:bg-black/40 transition-all duration-300"
+              onClick={() => {
+                console.log('点击关闭按钮')
+                setSelectedPoster(null)
+              }}
+            >
+              <span className="text-xl">×</span>
+            </button>
+            
+            {/* 海报图片 */}
+            <img
+              src={selectedPoster}
+              alt="活动海报"
+              className="w-full h-auto max-h-[90vh] object-contain"
+              onLoad={() => console.log('海报图片加载完成')}
+              onError={() => console.log('海报图片加载失败')}
+            />
+          </div>
+        </div>
+      )}
     </section>
   )
 }

@@ -409,7 +409,7 @@ export default function JoinEcosystemSection() {
             </div>
             <div className="relative flex justify-center">
               <span className="bg-black px-6 text-sm text-gray-400 uppercase tracking-wider">
-                Backed by Top-Tier VCs
+                Strategic Partners
               </span>
             </div>
           </div>
@@ -470,7 +470,7 @@ export default function JoinEcosystemSection() {
             transition={{ duration: 0.8, delay: 2.8 }}
           >
             <p className="text-gray-500 text-sm">
-              Backed by top-tier venture capital partners
+              Partnering with leading venture capital organizations
             </p>
           </motion.div>
         </motion.div>
